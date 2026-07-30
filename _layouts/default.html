@@ -12,6 +12,9 @@
 
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | absolute_url }}?{{ site.time | date: '%s%N' }}">
 
+    <script>document.documentElement.classList.add('js');</script>
+    <script defer src="{{ '/assets/js/main.js' | absolute_url }}"></script>
+
     <link rel="apple-touch-icon" href="{{ site.icon }}">
 
     {%- if jekyll.environment == 'production' and site.google_analytics -%}
@@ -20,6 +23,11 @@
 
   </head>
   <body>
+
+    <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode">
+      <span class="theme-toggle__light">Light</span>
+      <span class="theme-toggle__dark">Dark</span>
+    </button>
 
     {% if page.layout == 'home' %}
       <a href="#main" class="skip-navigation">
@@ -37,7 +45,9 @@
       {% include search.html %}
     {% endunless %}
 
-    {% include menu.html %}
+    {% unless page.layout == 'home' %}
+      {% include menu.html %}
+    {% endunless %}
 
     {% unless site.hide_credits %}
       <aside class="site-credits">
